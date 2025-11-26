@@ -1,15 +1,31 @@
-//
-//  main.c
-//  day 77
-//
-//  Created by Sanaa Kumar on 26/11/25.
-//
-
-#include <stdlib.h>
 #include <stdio.h>
+int main(void) {
+    FILE *in, *out;
+    char ch;
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    printf("Hello, World!\n");
-    return EXIT_SUCCESS;
+    in = fopen("input.txt", "r");
+    if(in == NULL) {
+        printf("Unable to open input.txt\n");
+        return 0;
+    }
+
+    out = fopen("output.txt", "w");
+    if(out == NULL) {
+        printf("Unable to open output.txt\n");
+        fclose(in);
+        return 0;
+    }
+
+    while((ch = fgetc(in)) != EOF) {
+        if(ch >= 'a' && ch <= 'z')
+            ch = ch - 32;
+        fputc(ch, out);
+    }
+
+    fclose(in);
+    fclose(out);
+
+    printf("Conversion complete.\n");
+    return 0;
 }
+
